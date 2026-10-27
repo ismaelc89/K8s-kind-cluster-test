@@ -29,4 +29,4 @@ jobs:
         uses: docker://ghcr.io/yannh/kubeconform:latest
         with:
           entrypoint: '/kubeconform'
-          args: "-strict -kubernetes-version 1.30.0 /github/workspace"
+          args: "-strict -kubernetes-version 1.30.0 /github/workspace/manifests"
