@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          env:
+            - name: WELCOME_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: test-configmap
+                  key: welcome_message
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html  # Mounts just this specific file without overwriting the whole directory
+      volumes:
+        - name: html-volume
+          configMap:
+            name: nginx-html-config
