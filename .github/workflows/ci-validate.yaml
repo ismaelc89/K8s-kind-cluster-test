@@ -1,0 +1,31 @@
+name: Validate Kubernetes Manifests
+
+on:
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout your code repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Run YAML Lint to check formatting and syntax
+      - name: Lint YAML files
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: .
+          config_data: |
+            extends: default
+            rules:
+              line-length: disable
+
+      # 3. Set up Kubeconform to validate Kubernetes API schemas
+      - name: Run Kubeconform
+        uses: yannh/kubeconform-action@v4
+        with:
+          version: v1.30.0 # Match your Kind/Kubernetes cluster version
+          directory: .     # Points to your root directory containing your YAML manifests
+          strict: true     # Fails on unknown fields (great for catching typos)
