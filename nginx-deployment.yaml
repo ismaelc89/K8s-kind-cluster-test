@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,7 +30,12 @@ spec:
             - name: html-volume
               mountPath: /usr/share/nginx/html/index.html
               subPath: index.html  # Mounts just this specific file without overwriting the whole directory
+            - name: k8s-volume
+              mountPath: /tmp
       volumes:
         - name: html-volume
           configMap:
-            name: nginx-html-config
+            name: nginx-html-config-v2
+        - name: k8s-volume
+          persistentVolumeClaim:
+            claimName: local-pvc
