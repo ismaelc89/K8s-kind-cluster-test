@@ -42,7 +42,7 @@ spec:
       volumes:
         - name: html-volume
           configMap:
-            name: nginx-html-config-v1
+            name: nginx-html-config-v2
         - name: k8s-volume
           persistentVolumeClaim:
             claimName: local-pvc
