@@ -20,6 +20,13 @@ spec:
           image: nginx:alpine
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
           env:
             - name: WELCOME_MESSAGE
               valueFrom:
@@ -35,7 +42,7 @@ spec:
       volumes:
         - name: html-volume
           configMap:
-            name: nginx-html-config-v2
+            name: nginx-html-config-v1
         - name: k8s-volume
           persistentVolumeClaim:
             claimName: local-pvc

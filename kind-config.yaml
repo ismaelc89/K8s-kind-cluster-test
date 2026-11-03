@@ -5,3 +5,7 @@ name: devops-cluster
 nodes:
   - role: control-plane
   - role: worker
+    extraPortMappings:
+      - containerPort: 30080  # The port inside the kind Docker node
+        hostPort: 8080        # The port you type in your Mac's browser (localhost:8080)
+        protocol: TCP

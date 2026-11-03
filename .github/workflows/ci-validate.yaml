@@ -24,9 +24,14 @@ jobs:
             rules:
               line-length: disable
 
-      # 3. Set up Kubeconform to validate Kubernetes API schemas
+     # 3. Set up Kubeconform to validate Kubernetes API schemas
       - name: Run Kubeconform
         uses: docker://ghcr.io/yannh/kubeconform:latest
         with:
           entrypoint: '/kubeconform'
-          args: "-strict -kubernetes-version 1.30.0 /github/workspace/manifests"
+          args: >-
+            -strict
+            -kubernetes-version 1.30.0
+            -schema-location default
+            -schema-location https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
+            /github/workspace/manifests
