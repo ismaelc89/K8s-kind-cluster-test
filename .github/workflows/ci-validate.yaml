@@ -30,4 +30,3 @@ jobs:
         with:
           entrypoint: '/kubeconform'
           args: "-strict -kubernetes-version 1.30.0 -schema-location default -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceApiVersion}}.json' /github/workspace/manifests"
-          
