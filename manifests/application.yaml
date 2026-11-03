@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -5,16 +6,13 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  
   source:
     repoURL: https://github.com/ismaelc89/K8s-kind-cluster-test.git
     targetRevision: HEAD
     path: manifests
-  
   destination:
     server: https://kubernetes.default.svc
     namespace: default
-
   syncPolicy:
     automated:
       selfHeal: true

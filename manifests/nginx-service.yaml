@@ -11,4 +11,3 @@ spec:
       targetPort: 80    # The port on the pod where traffic gets sent (must match containerPort!)
       nodePort: 30080   # Must match the containerPort in your kind-config.yaml!
   type: NodePort
-      
