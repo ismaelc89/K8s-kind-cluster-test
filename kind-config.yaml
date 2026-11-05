@@ -6,6 +6,9 @@ nodes:
   - role: control-plane
   - role: worker
     extraPortMappings:
-      - containerPort: 30080  # The port inside the kind Docker node
+      - containerPort: 30080  # The port inside the kind Nginx Docker node
         hostPort: 8080        # The port you type in your Mac's browser (localhost:8080)
+        protocol: TCP
+      - containerPort: 30443  # Matches the fixed nodePort ArgoCD
+        hostPort: 8443        # What you type in your browser (https://localhost:8443)
         protocol: TCP
